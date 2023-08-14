@@ -1,4 +1,4 @@
-# pattern_based_learning
+# pattern_based_learning (in progress)
 
 Learning a language is a challenging task and it takes a lot of time for the learner to become fluent in a particular language. Learning a first language is somewhat easy, as we learn in an informal way and in an immersive environment. While learning a second language we adopt a formal way of learning, it challenges our mind requiring cognitive framework to understand and communicate in the target language. It requires conscious effort and time to develop language skills that may not come intuitively.
 
