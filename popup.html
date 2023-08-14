@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attention!</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(82, 80, 80, 0.9);
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(174, 209, 222);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+        </style>
+</head>
+<body>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="closeBtn" id="closeBtn">&times;</span>
+            <h2>Hey there!</h2>
+            <p>Complete the previous level with score 70 or more to unlock this level.</p>
+        </div>
+    </div>
+
+   
+
+</body>
+<script>
+    const popup = document.getElementById("popup");
+const closeBtn = document.getElementById("closeBtn");
+
+// Function to open the pop-up automatically
+function openPopup() {
+popup.style.display = "block";
+}
+
+// Function to redirect the user to punjabi_levels.html
+function redirectToPunjabiLevels() {
+window.location.href = "/punjabi_levels";
+}
+
+// Automatically open the pop-up when the page loads
+document.addEventListener("DOMContentLoaded", openPopup);
+
+// Handle close button click to redirect
+closeBtn.addEventListener("click", redirectToPunjabiLevels);
+
+</script>
+</html>
