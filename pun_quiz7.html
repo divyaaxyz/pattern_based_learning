@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Quiz</title>
+    <!-- Include Bootstrap CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- You can use a specific version or the latest version available -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url('static/images/pins_back.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* animation: backgroundAnimation 10s infinite; */
+
+    }
+
+
+    h1 {
+      color: #dbbebe;
+    }
+
+    /* #quiz-container { */
+      /* max-width: 500px; */
+      /* margin: 0 auto; */
+      /* padding: 20px; */
+      /* border: 2px solid #333; */
+      /* border-radius: 10px; */
+      /* background-color: rgba(167, 159, 159, 0.4); */
+      /* Translucent background color */
+    /* } */
+
+
+    #question {
+      margin-bottom: 20px;
+    }
+
+    #options {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #options li {
+      margin-bottom: 10px;
+      width: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: 100;
+    }
+
+    #submit-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #6794d4;
+      color: #06070f;
+      border: none;
+      cursor: pointer;
+    }
+
+    #submit-btn:hover {
+      background-color: rgb(108, 246, 108);
+      border: 2px solid black;
+      border-radius: 6px;
+    }
+
+    .selected {
+      background-color: #b1c4e9;
+      /* border: 2px solid black; */
+      border-radius: 5px;
+    }
+
+    #result-container {
+      display: none;
+      margin-top: 50px;
+    }
+
+    #result-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #submit-result-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #90b0dc;
+      color: #06070f;
+      border: none;
+      cursor: pointer;
+    }
+
+    #submit-result-btn:hover {
+      background-color: rgb(159, 239, 159);
+    }
+
+    .navbar {
+      background-color: rgba(67, 71, 72, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .navbar img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .navbar .nav-buttons {
+      display: flex;
+    }
+
+    .navbar .nav-buttons button {
+      /* background-color: #4CAF50; */
+      border: none;
+      color: rgb(44, 41, 41);
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition-duration: 0.4s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar .nav-buttons button:hover {
+      background-color: #909797;
+      color: #090a0a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <img src="static/images/iit.jpg" alt="Logo">
+    <div class="nav-buttons">
+      <button onclick="redirectToHome()">Home</button>
+      <button onclick="confirmQuit()">Quit</button>
+    </div>
+  </div>
+  <h1>Quiz</h1>
+
+
+<div>
+  <div class="col-md-4" style="margin: left 800px"></div>
+    <h2 id="question"></h2>
+    <div id="media-container"></div>
+    <ul id="options"></ul>
+
+    <!-- <img class="character-gif" src="images/daynight.gif" alt="Cheerful Character"> -->
+    <!-- <br> -->
+    <button id="submit-btn">Next</button>
+  </div>
+</div>
+
+  <div id="result-container">
+    <h2>Quiz completed!</h2>
+    <p id="result-text"></p>
+    <button id="submit-result-btn">Let's move ahead</button>
+  </div>
+
+  <script>
+
+    // Quiz questions and answers
+    const quizData = [
+      {
+        question: "Question 1",
+        image: "static/images/pyaar.jpeg",
+        options: ["ਪਿਆਰ", "ਯਾਰ", "ਨੀਲਾ", "ਰੰਗੀਲਾ"],
+        correctAnswer: 0
+      },
+      {
+        question: "Question 2",
+        audio: "static/audio/nookeela.mp3",
+        options: ["ਪਤੀਲਾ", "ਮੁਟਿਆਰ", "ਨੁਕੀਲਾ", "ਅਖਬਾਰ"],
+        correctAnswer: 2
+      },
+      {
+        question: "Question 3",
+        image: "static/images/zeherila.jpeg",
+        options: ["ਅਖਬਾਰ", "ਨੁਕੀਲਾ", "ਰੰਗੀਲਾ", "ਜ਼ਹਿਰੀਲਾ"],
+        correctAnswer: 3
+      },
+      {
+        question: "Question 4",
+        image: "static/images/akhbaar.jpeg",
+        options: ["ਸਰਦਾਰ", "ਪਿਆਰ", "ਅਖਬਾਰ", "ਜ਼ਹਿਰੀਲਾ"],
+        correctAnswer: 2
+      },
+      {
+        question: "Question 5",
+        audio: "static/audio/mutiyaar.mp3",
+        options: ["ਮੁਟਿਆਰ", "ਅਖਬਾਰ", "ਪਿਆਰ", "ਨੁਕੀਲਾ"],
+        correctAnswer: 0
+      },
+      {
+        question: "Question 6",
+        image: "static/images/neela.jpeg",
+        options: ["ਪਤੀਲਾ", "ਨੀਲਾ ", "ਜ਼ਹਿਰੀਲਾ", "ਰੰਗੀਲਾ "],
+        correctAnswer: 1
+      },
+      {
+        question: "Question 7",
+        image: "static/images/yaar.jpeg",
+        options: ["ਸਰਦਾਰ", "ਪਿਆਰ", "ਮੁਟਿਆਰ ", "ਯਾਰ"],
+        correctAnswer: 3
+      },
+      {
+        question: "Question 8",
+        audio: "static/audio/sardaar.mp3",
+        options: ["ਸਰਦਾਰ", "ਰੰਗੀਲਾ", "ਅਖਬਾਰ ", "ਮੁਟਿਆਰ "],
+        correctAnswer: 0
+      },
+      {
+        question: "Question 9",
+        image: "static/images/rangeela.jpeg",
+        options: ["ਜ਼ਹਿਰੀਲਾ", "ਨੀਲਾ", "ਰੰਗੀਲਾ", "ਨੁਕੀਲਾ"],
+        correctAnswer: 2
+      },
+      {
+        question: "Question 10",
+        image: "static/images/patiila.jpeg",
+        options: ["ਰੰਗੀਲਾ", "ਮੁਟਿਆਰ", "ਪਤੀਲਾ", "ਜ਼ਹਿਰੀਲਾ"],
+        correctAnswer: 2
+      }
+      // Add your quiz questions here...
+    ];
+
+    const questionElement = document.getElementById("question");
+    const mediaContainer = document.getElementById("media-container");
+    const optionsElement = document.getElementById("options");
+    const submitButton = document.getElementById("submit-btn");
+    const resultContainer = document.getElementById("result-container");
+    const resultText = document.getElementById("result-text");
+
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
+
+    function loadQuestionWithImage() {
+      const currentQuestion = quizData[currentQuestionIndex];
+      questionElement.textContent = currentQuestion.question;
+      mediaContainer.innerHTML = `<img src="${currentQuestion.image}" alt="Question Image" style="max-width: 300px;">`;
+      optionsElement.innerHTML = "";
+
+      for (let i = 0; i < currentQuestion.options.length; i++) {
+        const option = document.createElement("li");
+        option.textContent = currentQuestion.options[i];
+        option.onclick = () => selectOption(i, option);
+        optionsElement.appendChild(option);
+      }
+    }
+
+    function loadQuestionWithAudio() {
+      const currentQuestion = quizData[currentQuestionIndex];
+      questionElement.textContent = currentQuestion.question;
+      mediaContainer.innerHTML = `<audio controls src="${currentQuestion.audio}"></audio>`;
+      optionsElement.innerHTML = "";
+
+      for (let i = 0; i < currentQuestion.options.length; i++) {
+        const option = document.createElement("li");
+        option.textContent = currentQuestion.options[i];
+        option.onclick = () => selectOption(i, option);
+        optionsElement.appendChild(option);
+      }
+    }
+
+    function selectOption(selectedIndex, selectedOption) {
+      const options = optionsElement.getElementsByTagName("li");
+
+      for (let i = 0; i < options.length; i++) {
+        options[i].classList.remove("selected");
+      }
+
+      selectedOption.classList.add("selected");
+      submitButton.disabled = false;
+    }
+
+    function checkAnswer() {
+      const options = optionsElement.getElementsByTagName("li");
+      const selectedOption = optionsElement.querySelector(".selected");
+
+      if (!selectedOption) {
+        return; // No option selected
+      }
+
+      const selectedIndex = Array.from(options).indexOf(selectedOption);
+
+      if (selectedIndex === quizData[currentQuestionIndex].correctAnswer) {
+        correctAnswers++;
+        selectedOption.classList.add("correct");
+      } else {
+        selectedOption.classList.add("wrong");
+      }
+
+      for (let i = 0; i < options.length; i++) {
+        options[i].onclick = null; // Disable click event for options
+      }
+
+      submitButton.disabled = true;
+
+      if (currentQuestionIndex < quizData.length - 1) {
+        setTimeout(nextQuestion, 1000); // Move to the next question after 1 second
+      } else {
+        setTimeout(showResult, 1000); // Show the result after 1 second
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+
+      if (quizData[currentQuestionIndex].image) {
+        loadQuestionWithImage();
+      } else if (quizData[currentQuestionIndex].audio) {
+        loadQuestionWithAudio();
+      }
+    }
+
+    function showResult() {
+      const percentage = (correctAnswers / quizData.length) * 100;
+
+      resultText.textContent = `You answered ${correctAnswers} out of ${quizData.length} questions correctly. Your score is ${percentage}%.`;
+      resultContainer.style.display = "block";
+      document.getElementById("quiz-container").style.display = "none";
+      calculatedData = percentage; // Replace with your calculated data
+      const url = 'http://127.0.0.1:5000/store_data';
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ data: calculatedData }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Data successfully stored:', data);
+        })
+        .catch(error => {
+          console.error('Error while storing data:', error);
+        });
+
+    }
+
+    submitButton.addEventListener("click", checkAnswer);
+
+    // Initial question loading
+    if (quizData[currentQuestionIndex].image) {
+      loadQuestionWithImage();
+    } else if (quizData[currentQuestionIndex].audio) {
+      loadQuestionWithAudio();
+    }
+
+    function redirectToAnotherPage() {
+      window.location.href = '/punjabi_levels'; // Replace "second.html" with the desired page URL
+    }
+
+    // Add click event listener to the submit button in the result container
+    const submitResultButton = document.getElementById("submit-result-btn");
+    submitResultButton.addEventListener("click", redirectToAnotherPage);
+    function redirectToHome() {
+      window.location.href = "/home"; // Replace with the home page URL
+    }
+
+    function confirmQuit() {
+      const confirmation = confirm("Are you sure you want to quit?");
+      if (confirmation) {
+        redirectToAnotherPage(); // Replace with the desired webpage URL after quitting
+      }
+    }
+   
+
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

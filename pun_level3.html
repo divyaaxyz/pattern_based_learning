@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #093028;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #237A57, #093028);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        
+        }
+        
+        h1 {
+            margin-top: 50px;
+            color: #26282c;
+        }
+        
+        .question {
+            margin-top: 30px;
+        }
+        
+        .question img {
+            width: 500px;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            /* margin-bottom: 20px; */
+        }
+        
+        .audio-player {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-bottom: 20px; */
+        }
+        
+        .audio-player audio {
+            width: 300px;
+            border:2px solid black;
+            border-radius:30px;
+        }
+
+        .question-text {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        .cheerful-character {
+            width: 300px;
+            height: auto;
+        }
+
+        #nextButton {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        #nextButton:hover {
+            background-color: #527fc8;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="question">
+        
+        <!-- <h3>Howdy!!!</h3> -->
+        <img src="images/1.png" alt="Image 1">
+        <p class="question-text">This is the description for Image 1</p>
+        
+        <div class="audio-player">
+            <audio controls>
+                <source src="audio1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    
+    <button id="nextButton">Next</button>
+    
+    <script>
+        const totalItems = 75; // Total number of images and audio files
+const repeatPattern = [1, 2, 3, 4, 5, 2, 3, 4, 5, 6, 3, 4, 5, 6, 7, 4, 5, 6, 7, 8, 5, 6, 7, 8, 9, 6, 7, 8, 9, 10, 7, 8, 9, 10, 11, 8, 9, 10, 11, 12, 9, 10, 11, 12, 13, 10, 11, 12, 13, 14, 11, 12, 13, 14, 15, 12, 13, 14, 15, 1, 13, 14, 15, 1, 2, 14, 15, 1, 2, 3, 15, 1, 2, 3, 4, 1, 2, 3, 4, 5];
+const questionData = [
+{
+        image: "2-1.jpg",
+        audio: "static/audio/2-1.mp3",
+        text: "ਸਮੁੰਦਰ (Ocean)"
+    },
+    {
+        image: "2-2.jpg",
+        audio: "static/audio/2-2.mp3",
+        text: "ਬਾਂਦਰ (Monkey)"
+    },
+    {
+        image: "2-3.webp",
+        audio: "static/audio/2-3.mp3",
+        text: "ਅੰਦਰ (inside)"
+    },
+    {
+        image: "2-4.jpeg",
+        audio: "static/audio/2-4.mp3",
+        text: "ਚੁਕੰਦਰ (beetroot)"
+    },
+    {
+        image: "2-5.webp",
+        audio: "static/audio/2-5.mp3",
+        text: "ਮੰਦਰ (temple)"
+    },
+    {
+        image: "2-6.avif",
+        audio: "static/audio/2-6.mp3",
+        text: "ਸੰਗੀਤਕਾਰ (musician)"
+    },
+    {
+        image: "2-7.webp",
+        audio: "static/audio/2-7.mp3",
+        text: "ਸਰਕਾਰ (Government)"
+    },
+    {
+        image: "2-8.jpg",
+        audio: "static/audio/2-8.mp3",
+        text: "ਸ਼ਿਸ਼ਟਾਚਾਰ (Manners)"
+    },
+    {
+        image: "2-9.webp",
+        audio: "static/audio/2-9.mp3",
+        text: "ਪੁਰਸਕਾਰ (Award)"
+    },
+    {
+        image: "2-10.jpg",
+        audio: "static/audio/2-10.mp3",
+        text: "ਨਾਟਕਕਾਰ (Dramatist)"
+    },
+    {
+        image: "2-11.avif",
+        audio: "static/audio/2-11.mp3",
+        text: "ਗੁਲਾਬ (rose)"
+    },
+    {
+        image: "2-12.jpg",
+        audio: "static/audio/2-12.mp3",
+        text: "ਕਿਤਾਬ (book)"
+    },
+    {
+        image: "2-13.jpg",
+        audio: "static/audio/2-13.mp3",
+        text: "ਤਾਲਾਬ (Pond)"
+    },
+    {
+        image: "2-14.jpg",
+        audio: "static/audio/2-14.mp3",
+        text: "ਜੁਰਾਬਾਂ (socks)"
+    },
+    {
+        image: "2-15.avif",
+        audio: "static/audio/2-15.mp3",
+        text: "ਪੰਜਾਬ (Punjab)"
+    }
+    
+    
+];
+
+let currentIndex = 0;
+const questionDiv = document.querySelector('.question');
+const nextButton = document.querySelector('#nextButton');
+
+function updateQuestion() {
+    const index = currentIndex % repeatPattern.length;
+    const question = questionData[repeatPattern[index] - 1];
+    questionDiv.querySelector('img').src = `static/images/${question.image}`;
+    questionDiv.querySelector('.question-text').textContent = question.text;
+    questionDiv.querySelector('audio source').src = question.audio;
+    questionDiv.querySelector('audio').load(); 
+}
+
+nextButton.addEventListener('click', () => {
+    currentIndex++;
+    if (currentIndex === totalItems) {
+        window.location.href = "/pun_quiz3"; // Redirect to the quiz page
+    } else {
+        updateQuestion();
+    }
+});
+
+updateQuestion();
+
+    </script>
+</body>
+</html>

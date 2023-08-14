@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #8360c3;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #2ebf91, #8360c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+        
+        }
+        
+        h1 {
+            margin-top: 50px;
+            color: #26282c;
+        }
+        
+        .question {
+            margin-top: 30px;
+        }
+        
+        .question img {
+            width: 500px;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            /* margin-bottom: 20px; */
+        }
+        
+        .audio-player {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-bottom: 20px; */
+        }
+        
+        .audio-player audio {
+            width: 300px;
+            border:2px solid black;
+            border-radius:30px;
+        }
+
+        .question-text {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        .cheerful-character {
+            width: 300px;
+            height: auto;
+        }
+
+        #nextButton {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        #nextButton:hover {
+            background-color: #527fc8;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="question">
+        
+        <!-- <h3>Howdy!!!</h3> -->
+        <img src="../static/images/1.jpg" alt="Image 1">
+        <p class="question-text">This is the description for Image 1</p>
+        
+        <div class="audio-player">
+            <audio controls>
+                <source src="static/audio1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    
+    <button id="nextButton">Next</button>
+    
+    <script>
+        const totalItems = 50; // Total number of images and audio files
+const repeatPattern = [1, 2, 3, 4, 5, 2, 3, 4, 5, 6, 3, 4, 5, 6, 7, 4, 5, 6, 7, 8, 5, 6, 7, 8, 9, 6, 7, 8, 9, 10, 7, 8, 9, 10, 1, 8, 9, 10, 1, 2, 9, 10, 1, 2, 3, 10, 1, 2, 3, 4];
+const questionData = [
+    {
+        image: "yaar.jpeg",
+        audio: "static/audio/yaar.mp3",
+        text: "ਯਾਰ (friend)"
+    },
+    {
+        image: "pyaar.jpeg",
+        audio: "static/audio/pyaar.mp3",
+        text: "ਪਿਆਰ (love)"
+    },
+    {
+        image: "sardaar.jpeg",
+        audio: "static/audio/sardaar.mp3",
+        text: "ਸਰਦਾਰ (Sardaar)"
+    },
+    {
+        image: "akhbaar.jpeg",
+        audio: "static/audio/akhbaar.mp3",
+        text: "ਅਖਬਾਰ (newspaper)"
+    },
+    {
+        image: "mutiyaar.jpeg",
+        audio: "static/audio/mutiyaar.mp3",
+        text: "ਮੁਟਿਆਰ (woman)"
+    },
+    {
+        image: "neela.jpeg",
+        audio: "static/audio/neela.mp3",
+        text: "ਨੀਲਾ (blue)"
+    },
+    {
+        image: "nookila.jpeg",
+        audio: "static/udio/nookeela.mp3",
+        text: "ਨੁਕੀਲਾ (sharp)"
+    },
+    {
+        image: "rangeela.jpeg",
+        audio: "static/audio/rangeela.mp3",
+        text: "ਰੰਗੀਲਾ (colorful)"
+    },
+    {
+        image: "patiila.jpeg",
+        audio: "static/audio/patiila.mp3",
+        text: "ਪਤੀਲਾ (utensil)"
+    },
+    {
+        image: "zeherila.jpeg",
+        audio: "static/audio/zeherila.mp3",
+        text: "ਜ਼ਹਿਰੀਲਾ (poisonous)"
+    }
+    
+];
+
+let currentIndex = 0;
+const questionDiv = document.querySelector('.question');
+const nextButton = document.querySelector('#nextButton');
+
+function updateQuestion() {
+    const index = currentIndex % repeatPattern.length;
+    const question = questionData[repeatPattern[index] - 1];
+    questionDiv.querySelector('img').src = `static/images/${question.image}`;
+    questionDiv.querySelector('.question-text').textContent = question.text;
+    questionDiv.querySelector('audio source').src = question.audio;
+    questionDiv.querySelector('audio').load(); 
+}
+
+nextButton.addEventListener('click', () => {
+    currentIndex++;
+    if (currentIndex === totalItems) {
+        window.location.href = "/pun_quiz1"; // Redirect to the quiz page
+    } else {
+        updateQuestion();
+    }
+});
+
+updateQuestion();
+
+    </script>
+</body>
+</html>

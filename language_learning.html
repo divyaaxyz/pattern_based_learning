@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning</title>
+    <style>
+        body {
+            height:100px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('images/318354.jpg');
+        }
+        
+        h1 {
+            margin-top: 50px;
+            color: #26282c;
+        }
+        
+        .level-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .level-item {
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .level-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .level-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .level-item:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .level-item p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2e3341;
+        }
+        
+        .character {
+            margin-top: 30px;
+        }
+        
+        .character img {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Let's start the Journey!</h1>
+        <div class="level-list">
+            <!-- Generate level items dynamically based on the selected language -->
+            <script>
+                // Get the selected language from the URL query string
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const selectedLanguage = urlParams.get('lang');
+
+                // Define an object to store the level information for each language
+                const languageLevels = {
+                    english: [
+                        { level: 1, image: 'India-flag-a4.jpg' },
+                        { level: 2, image: 'spanish.jpg' },
+                        { level: 3, image: 'spanish.jpg' },
+                        { level: 4, image: 'spanish.jpg' },
+                        { level: 5, image: 'spanish.jpg' },
+                        { level: 6, image: 'spanish.jpg' },
+                        { level: 7, image: 'spanish.jpg' },
+                        { level: 8, image: 'spanish.jpg' },
+                        { level: 9, image: 'spanish.jpg' },
+                        { level: 10, image: 'spanish.jpg' }
+                        // Add more levels for English as needed
+                    ],
+                    spanish: [
+                        { level: 1, image: 'spanish_level1.jpg' },
+                        { level: 2, image: 'spanish_level2.jpg' },
+                        { level: 3, image: 'spanish.jpg' },
+                        { level: 4, image: 'spanish.jpg' },
+                        { level: 5, image: 'spanish.jpg' },
+                        { level: 6, image: 'spanish.jpg' },
+                        { level: 7, image: 'spanish.jpg' },
+                        { level: 8, image: 'spanish.jpg' },
+                        { level: 9, image: 'spanish.jpg' },
+                        { level: 10, image: 'spanish.jpg' }
+                        // Add more levels for Spanish as needed
+                    ],
+                    punjabi: [
+                        { level: 1, image: 'images/ok.png' },
+                        { level: 2, image: 'images/lock2.png' },
+                        { level: 3, image: 'images/lock2.png' },
+                        { level: 4, image: 'images/lock2.png' },
+                        { level: 5, image: 'images/lock2.png' },
+                        { level: 6, image: 'images/lock2.png' },
+                        { level: 7, image: 'images/lock2.png' },
+                        { level: 8, image: 'images/lock2.png' },
+                        { level: 9, image: 'images/lock2.png' },
+                        { level: 10, image: 'images/lock2.png' }
+                    ]
+                    // Define levels for other languages in a similar manner
+                };
+
+                // Generate the level items based on the selected language
+                const levelList = document.querySelector('.level-list');
+                const levels = languageLevels[selectedLanguage];
+                levels.forEach(level => {
+                    const levelItem = document.createElement('div');
+                    levelItem.className = 'level-item';
+                    const levelLink = document.createElement('a');
+                    levelLink.href = `level${level.level}.html`;
+                    const levelImage = document.createElement('img');
+                    levelImage.src = level.image;
+                    levelImage.alt = `Level ${level.level}`;
+                    const levelText = document.createElement('p');
+                    levelText.textContent = `Level ${level.level}`;
+
+                    levelLink.appendChild(levelImage);
+                    levelLink.appendChild(levelText);
+                    levelItem.appendChild(levelLink);
+                    levelList.appendChild(levelItem);
+                    
+                });
+            </script>
+        </div>
+        <div class="character">
+            <img src="images/character-icegif-5.gif" alt="Cheerful Character">
+        </div>
+    </div>
+</body>
+</html>
